@@ -1,0 +1,53 @@
+/*
+ * Copyright (c) 2016 Incoybe Technologies and others.  All rights reserved.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v1.0 which accompanies this distribution,
+ * and is available at http://www.eclipse.org/legal/epl-v10.html
+ */
+module bepbop {
+    yang-version 1;
+    namespace "urn:inocybe:opendaylight:summit:bepbop";
+    prefix "bepbop";
+
+    revision "2016-09-26" {
+        description "Initial revision of bepbop model";
+    }
+
+    container parrot {
+        leaf flag {
+            type uint8;
+        }
+        leaf roll {
+            type int8 {
+                range "-100 .. 100";
+            }
+        }
+        leaf pitch {
+            type int8 {
+                range "-100 .. 100";
+            }
+        }
+        leaf yaw {
+            type int8 {
+                range "-100 .. 100";
+            }
+        }
+        leaf gaz {
+            type int8 {
+                range "-100 .. 100";
+            }
+        }
+        leaf timestamp-and-seq-num {
+            type uint32;
+        }
+    }
+
+    rpc take-off {
+
+    }
+
+    rpc land {
+
+    }
+}

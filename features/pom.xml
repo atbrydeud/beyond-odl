@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright (c) 2016 Inocybe Technologies, Inc. and others.  All rights reserved.
+
+ This program and the accompanying materials are made available under the
+ terms of the Eclipse Public License v1.0 which accompanies this distribution,
+ and is available at http://www.eclipse.org/legal/epl-v10.html
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.opendaylight.odlparent</groupId>
+        <artifactId>features-parent</artifactId>
+        <version>1.8.0-SNAPSHOT</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>org.inocybe.odlsummit</groupId>
+    <artifactId>features</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <properties>
+        <controller.mdsal.version>1.5.0-SNAPSHOT</controller.mdsal.version>
+        <restconf.version>1.5.0-SNAPSHOT</restconf.version>
+        <dlux.version>0.5.0-SNAPSHOT</dlux.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.opendaylight.controller</groupId>
+            <artifactId>features-mdsal</artifactId>
+            <classifier>features</classifier>
+            <version>${controller.mdsal.version}</version>
+            <type>xml</type>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.opendaylight.netconf</groupId>
+            <artifactId>features-restconf</artifactId>
+            <classifier>features</classifier>
+            <version>${restconf.version}</version>
+            <type>xml</type>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.opendaylight.dlux</groupId>
+            <artifactId>features-dlux</artifactId>
+            <classifier>features</classifier>
+            <version>${dlux.version}</version>
+            <type>xml</type>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>bepbop-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>bepbop-impl</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>spheros-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>spheros-impl</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
+</project>
