@@ -27,6 +27,7 @@
     <modules>
         <module>bepbop-api</module>
         <module>bepbop-impl</module>
+        <module>bepbop-native</module>
         <module>spheros-api</module>
         <module>spheros-impl</module>
         <module>features</module>

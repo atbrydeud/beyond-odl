@@ -23,14 +23,18 @@ public class ParrotRpcService implements BepbopService {
 
     private static final Logger LOG = LoggerFactory.getLogger(ParrotRpcService.class);
 
+    private final Drone drone;
+
+    public ParrotRpcService(final Drone drone) {
+        this.drone = drone;
+    }
+
     @Override
     public Future<RpcResult<Void>> takeOff() {
 
-        LOG.info("Prepare to take off");
+        LOG.info("Taking off");
 
-        // TODO
-
-        LOG.info("Enjoy your flight");
+        drone.takeoff();
 
         return Futures.immediateFuture(RpcResultBuilder.<Void>success().build());
     }
@@ -38,11 +42,9 @@ public class ParrotRpcService implements BepbopService {
     @Override
     public Future<RpcResult<Void>> land() {
 
-        LOG.info("Please close your tablet and re-ajust your seat, we are landing");
+        LOG.info("Landing");
 
-        // TODO
-
-        LOG.info("Welcome to Seattle, hope you had a great trip");
+        drone.land();
 
         return Futures.immediateFuture(RpcResultBuilder.<Void>success().build());
     }

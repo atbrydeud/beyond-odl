@@ -1,92 +1,89 @@
-<project>
-  <modelVersion>4.0.0</modelVersion>
-  
-  <parent>
-    <groupId>net.tricoder.jnitest</groupId>
-    <artifactId>nativeParent</artifactId>
-    <version>1.0-SNAPSHOT</version>
-  </parent>
-    
-  <groupId>net.tricoder.jnitest</groupId>
-  <artifactId>jniExampleNative</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>JNI example native win32</name>
-  <url>http://maven.apache.org</url>
-	
-	<packaging>so</packaging>
+<!--
+ Copyright (c) 2016 Inocybe Technologies, Inc. and others.  All rights reserved.
 
-  <dependencies>
-    <dependency>
-      <groupId>net.tricoder.jnitest</groupId>
-      <artifactId>jniExampleJava</artifactId>
-      <version>1.0-SNAPSHOT</version>
-      <type>jar</type>
-      <scope>compile</scope>
-    </dependency>   
-  </dependencies>
-  
-	<build>
-		<plugins>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
-        </configuration>
-      </plugin>		
-		
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>native-maven-plugin</artifactId>
-				<extensions>true</extensions>
-				<configuration>
-          <!--  trigger javah -->          
-          <javahOS>hp-ux</javahOS>
-          
-          <compilerProvider>generic-classic</compilerProvider>
-					<compilerExecutable>cc</compilerExecutable>
-					
-					<linkerExecutable>cc</linkerExecutable>
-					<sources>
-						<source>
-							<directory>../src/main/native</directory>
-							<fileNames>
-								<fileName>jni_example.c</fileName>
-							</fileNames>
-						</source>
-					</sources>
-					
-					<compilerStartOptions>
-					 <compilerStartOption>+z +u4 -c -mt</compilerStartOption>
-					</compilerStartOptions>
+ This program and the accompanying materials are made available under the
+ terms of the Eclipse Public License v1.0 which accompanies this distribution,
+ and is available at http://www.eclipse.org/legal/epl-v10.html
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-					<linkerStartOptions>
-           <linkerStartOption>-b -lstd -lstream -lCsup -lunwind -lm</linkerStartOption>
-					</linkerStartOptions>
+    <modelVersion>4.0.0</modelVersion>
 
-				</configuration>
-				
-				<executions>
-           <execution>
-             <id>javah</id>
-             <phase>generate-sources</phase>
-             <configuration>
-          <javahOS>hp-ux</javahOS>
-          <javahProvider>default</javahProvider>
-          <javahOutputDirectory>${project.build.directory}/custom-javah</javahOutputDirectory>
-          <workingDirectory>${basedir}</workingDirectory>
-          <javahOutputFileName>nativeStuff.h</javahOutputFileName>
-          <javahClassNames>
-            <javahClassName>net.tricoder.jnitest.NativeStuff</javahClassName>
-          </javahClassNames>
-             </configuration>
-             <goals>
-               <goal>javah</goal>
-             </goals>
-           </execution>
-        </executions>       
-				
-			</plugin>
-		</plugins>
-	</build>
+    <parent>
+        <groupId>org.inocybe.odlsummit</groupId>
+        <artifactId>bepbop-native-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <groupId>org.inocybe.odlsummit</groupId>
+    <artifactId>bepbop-native-linux</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>so</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.inocybe.odlsummit</groupId>
+            <artifactId>java</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>native-maven-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <!--  trigger javah -->
+                    <javahOS>hp-ux</javahOS>
+                    <compilerProvider>generic-classic</compilerProvider>
+                    <compilerExecutable>cc</compilerExecutable>
+                    <jdkIncludePath>/System/Library/Frameworks/JavaVM.framework/Headers</jdkIncludePath>
+                    <linkerExecutable>cc</linkerExecutable>
+
+                    <sources>
+                        <source>
+                            <directory>../src/main/native</directory>
+                            <fileNames>
+                                <fileName>drone-control.c</fileName>
+                            </fileNames>
+                        </source>
+                    </sources>
+
+                    <compilerStartOptions>
+                        <compilerStartOption>-c</compilerStartOption>
+                    </compilerStartOptions>
+
+                    <linkerStartOptions>
+                        <linkerStartOption>-b -lstd -lstream -lCsup -lunwind -lm</linkerStartOption>
+                    </linkerStartOptions>
+
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <id>javah</id>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <javahProvider>default</javahProvider>
+                            <javahOutputDirectory>${project.build.directory}/custom-javah</javahOutputDirectory>
+                            <workingDirectory>${basedir}</workingDirectory>
+                            <javahOutputFileName>drone-control.h</javahOutputFileName>
+                            <javahClassNames>
+                                <javahClassName>org.inocybe.bepbop.Drone</javahClassName>
+                            </javahClassNames>
+                        </configuration>
+                        <goals>
+                            <goal>javah</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
+            </plugin>
+        </plugins>
+    </build>
 </project>

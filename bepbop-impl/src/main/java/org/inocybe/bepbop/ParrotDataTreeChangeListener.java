@@ -30,8 +30,11 @@ public class ParrotDataTreeChangeListener implements DataTreeChangeListener<Parr
     private final DataBroker dataBroker;
     private ListenerRegistration<ParrotDataTreeChangeListener> reg;
 
-    public ParrotDataTreeChangeListener(final DataBroker dataBroker) {
+    private final Drone drone;
+
+    public ParrotDataTreeChangeListener(final DataBroker dataBroker, final Drone drone) {
         this.dataBroker = dataBroker;
+        this.drone = drone;
     }
 
     /**
@@ -59,34 +62,19 @@ public class ParrotDataTreeChangeListener implements DataTreeChangeListener<Parr
             final DataObjectModification<Parrot> root = change.getRootNode();
             switch (root.getModificationType()) {
                 case SUBTREE_MODIFIED:
-                    update(change);
-                    break;
                 case WRITE:
-                    // Treat an overwrite as an update
-                    boolean update = change.getRootNode().getDataBefore() != null;
-                    if (update) {
-                        update(change);
-                    } else {
-                        add(change);
-                    }
+                    pilot(change);
                     break;
                 case DELETE:
-                    remove(change);
+                    // NOOP
                     break;
                 default:
                     break;
             }
         }    }
 
-    private void add(DataTreeModification<Parrot> change) {
-        // TODO use change.getRootNode().getDataAfter();
-    }
-
-    private void update(DataTreeModification<Parrot> change) {
-        // TODO use change.getRootNode().getDataAfter();
-    }
-
-    private void remove(DataTreeModification<Parrot> change) {
-        // TODO use change.getRootNode().getDataAfter();
+    private void pilot(DataTreeModification<Parrot> change) {
+        final Parrot p = change.getRootNode().getDataAfter();
+        drone.pilot(p.getPitch(), p.getYaw(), p.getRoll(), p.getGaz());
     }
 }

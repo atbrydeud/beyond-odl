@@ -13,15 +13,21 @@
     <reference id="dataBroker"
                interface="org.opendaylight.controller.md.sal.binding.api.DataBroker"/>
 
+    <bean id="drone"
+          class="org.inocybe.bepbop.Drone"/>
+
     <bean id="parrotDataTreeChangeListener"
           init-method="start"
           destroy-method="stop"
           class="org.inocybe.bepbop.ParrotDataTreeChangeListener">
         <argument ref="dataBroker"/>
+        <argument ref="drone"/>
     </bean>
 
     <bean id="parrotRpcService"
-          class="org.inocybe.bepbop.ParrotRpcService"/>
+          class="org.inocybe.bepbop.ParrotRpcService">
+        <argument ref="drone"/>
+    </bean>
     <odl:rpc-implementation ref="parrotRpcService"/>
 
 </blueprint>
